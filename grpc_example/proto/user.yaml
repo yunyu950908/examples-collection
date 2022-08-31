@@ -1,0 +1,7 @@
+type: google.api.service
+config_version: 3
+
+http:
+  rules:
+    - selector: grpc_example.UserService.GetUser # <proto package>.<service>.<func>
+      get: /user/{id} # restful api

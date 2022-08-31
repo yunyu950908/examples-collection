@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package grpc_example; // proto package
+
+// 生成 go package 的包路径和包名,用分号分割
+option go_package = "grpc_example/proto/gen/go;userpb";
+
+
+// message 定义结构体
+// 类型 字段名 = 字段顺序编号;
+message User {
+  string name = 1;
+  int64 age = 2;
+  bool is_verified = 3;
+  Gender gender = 4;
+  Code active_code = 5;
+  repeated Code outdated_codes = 6; // 注意复数形式, repeated 声明一个数组
+}
+
+// 枚举类型
+enum Gender {
+  IS_NOT_SPECIFIED = 0;
+  MALE = 1;
+  FEMALE = 2;
+}
+
+message Code {
+  string name = 1;
+  int64 award = 2;
+}
+
+message GetUserRequest {
+  string id = 1;
+}
+
+message GetUserResponse {
+  string id = 1;
+  User user = 2;
+}
+
+service UserService {
+  rpc GetUser (GetUserRequest) returns (GetUserResponse);
+}
